@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
-class ProdutoController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class ProdutoController extends Controller
     public function index()
     {
         // listar todos os produtos
-        $produtos = Produto::orderBy('nome', 'ASC')->get();
+        $categorias = Categoria::orderBy('nome', 'ASC')->get();
         //dd($produtos);
-        return view('produto.index', ['produtos' => $produtos]);
+        return view('categoria.index', ['categorias' => $categorias]);
     }
 
     /**
@@ -27,7 +27,7 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        return view('produto.create');
+        return view('categoria.create');
     }
 
     /**
@@ -44,52 +44,49 @@ class ProdutoController extends Controller
         $message = [
             'nome.required' => 'O campo nome é obrigatório',
             'nome.mim' => 'O campo nome precisa ter no mínimo :mim caracteres',
-            'descricao.required' => 'O campo descreção é obrigatório',
         ];
 
         $validateData = $request->validate([
             'nome'      => 'required|min:7',
-            'descrcao'  => 'required',
         ], $message);
 
-        $produto = Produto::findOrFail($id);
-        $produto->nome       =$request->nome;
-        $produto->descricao  =$request->descricao;
-        $produto->save();
+        $categoria = Categoria::findOrFail($id);
+        $categoria->nome       =$request->nome;
+        $categoria->save();
 
-        return redirect()->route('produto.index')->with('message', 'Produto criado com sucesso');
+        return redirect()->route('categoria.index')->with('message', 'Categoria criado com sucesso');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Produto $produto
+     * @param  \App\Models\Categoria $produto
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $produto = Produto::findOrFail($id);
-        return view('produto.show', ['produto' => $produto]);
+        $categoria = Categoria::findOrFail($id);
+        return view('categoria.show', ['categoria' => $categoria]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Produto $produto
+     * @param  \App\Models\Categoria $produto
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //dd("EDITAR o registro {$id});
-        $produto = Produto::findOrFail($id);
-        return view('produto.edit', ['produto' => $produto]);
+        $categoria = Categoria::findOrFail($id);
+        return view('categoria.edit', ['categoria' => $categoria]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Produto $produto
+     * @param  \App\Models\Categoria $produto
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -97,33 +94,30 @@ class ProdutoController extends Controller
         $message = [
             'nome.required' => 'O campo nome é obrigatório',
             'nome.mim' => 'O campo nome precisa ter no mínimo :mim caracteres',
-            'descricao.required' => 'O campo descreção é obrigatório',
         ];
 
         $validateData = $request->validate([
             'nome'      => 'required|min:7',
-            'descrcao'  => 'required',
         ], $message);
 
-        $produto = Produto::findOrFail($id);
-        $produto->nome       =$request->nome;
-        $produto->descricao  =$request->descricao;
-        $produto->save();
+        $categoria = Categoria::findOrFail($id);
+        $categoria->nome       =$request->nome;
+        $categoria->save();
 
-        return redirect()->route('produto.index')->with('message', 'Produto editado com sucesso');
+        return redirect()->route('categoria.index')->with('message', 'Categoria editado com sucesso');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * 
-     * @param  \App\Models\Produto $produto
+     * @param  \App\Models\Categoria $produto
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $produto = Produto::findOrFail($id);
-        $produto->delete();
-        return redirect()->route('produto.index')->with('message', 'Produto excluido com sucesso!');
+        $categoria = Categoria::findOrFail($id);
+        $categoria->delete();
+        return redirect()->route('categoria.index')->with('message', 'Categoria excluido com sucesso!');
     }
 }

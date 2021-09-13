@@ -24,5 +24,11 @@ class ProdutoSeeder extends Seeder
             'descricao' => 'Doce de amendoim'
         ]);
 
+        Produto::create([
+            'nome' => 'Prestigio',
+            'descricao' => 'Chocolate com coco'
+        ]);
+
+
     }
 }
